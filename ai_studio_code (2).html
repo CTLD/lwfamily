@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【整合會議紀錄】家庭局組隊長會議 - 2026/06/14</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F4F3EF;
+  --surface: #FFFFFF;
+  --border: #E2E0D9;
+  --text-1: #1A1A1E;
+  --text-2: #5C5C64;
+  --text-3: #9C9CA4;
+  --accent: #2B7A6E;
+  --accent-l: #E1F4EF;
+  --accent-d: #1A5049;
+  --urgent: #C8501E;
+  --urgent-l: #FAEDE7;
+  --high: #A86C10;
+  --high-l: #FAF0DC;
+  --mid: #1658A0;
+  --mid-l: #E5F0FB;
+  --r: 10px;
+  --r-sm: 6px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Noto Sans TC', system-ui, sans-serif; background: var(--bg); color: var(--text-1); line-height: 1.8; font-size: 14px; }
+
+/* ── Header ── */
+.hd { background: var(--accent); padding: 40px 44px 30px; text-align: center; }
+.hd-eye { font-size: 11px; letter-spacing: .2em; color: rgba(255,255,255,.6); text-transform: uppercase; margin-bottom: 10px; }
+.hd-title { font-family: 'Noto Serif TC', serif; font-size: 30px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+.hd-sub { font-size: 14px; color: rgba(255,255,255,.8); }
+
+/* ── Tab Switcher ── */
+.tabs-nav { display: flex; justify-content: center; background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+.tab-btn { padding: 16px 30px; border: none; background: none; font-size: 15px; font-weight: 500; color: var(--text-3); cursor: pointer; transition: all 0.3s; position: relative; }
+.tab-btn.active { color: var(--accent); }
+.tab-btn.active::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--accent); }
+
+.wrap { max-width: 900px; margin: 0 auto; padding: 30px 20px; }
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ── UI Elements ── */
+.sl { font-size: 11px; font-weight: 600; letter-spacing: .1em; color: var(--text-3); text-transform: uppercase; margin-top: 40px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+.sl::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+.stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 20px; text-align: center; }
+.stat-val { font-size: 32px; font-weight: 500; color: var(--accent); }
+
+.tl-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 30px; overflow-x: auto; }
+.tl { display: flex; min-width: 600px; }
+.tl-item { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; }
+.tl-item:not(:last-child)::after { content: ''; position: absolute; top: 10px; left: 50%; right: -50%; height: 1px; background: var(--border); }
+.tl-dot { width: 20px; height: 20px; border-radius: 50%; background: var(--accent); z-index: 1; }
+.tl-date { font-size: 12px; font-weight: 600; color: var(--accent); margin-top: 10px; }
+.tl-txt { font-size: 11px; color: var(--text-2); text-align: center; margin-top: 5px; }
+
+.tbl-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
+table { width: 100%; border-collapse: collapse; }
+th { background: #F8F7F3; padding: 12px 15px; text-align: left; font-size: 12px; color: var(--text-3); border-bottom: 1px solid var(--border); }
+td { padding: 15px; border-bottom: 1px solid var(--border); vertical-align: top; font-size: 13.5px; }
+
+.badge { padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+.b-urg { background: var(--urgent-l); color: var(--urgent); }
+.b-hi { background: var(--high-l); color: var(--high); }
+.b-mid { background: var(--mid-l); color: var(--mid); }
+
+.logic-block { background: #fff; border: 1px solid var(--border); border-radius: var(--r); padding: 25px; margin-bottom: 20px; }
+.logic-title { font-size: 17px; font-weight: 600; color: var(--accent-d); margin-bottom: 12px; border-bottom: 1px solid var(--accent-l); padding-bottom: 8px; }
+.logic-text { color: var(--text-2); line-height: 1.8; }
+.logic-tag { background: var(--accent-l); color: var(--accent-d); font-size: 11px; padding: 1px 6px; border-radius: 4px; font-weight: 500; margin-left: 10px; }
+
+.risk-grid { display: grid; gap: 12px; }
+.risk-item { background: #fff; border: 1px solid var(--border); border-left: 4px solid var(--urgent); padding: 15px 20px; border-radius: 0 var(--r) var(--r) 0; }
+.risk-ti { font-weight: 600; color: var(--urgent); margin-bottom: 5px; }
+
+.speakers { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
+.sp { background: #fff; border: 1px solid var(--border); padding: 15px; border-radius: var(--r); display: flex; align-items: flex-start; gap: 12px; }
+.sp-av { width: 36px; height: 36px; border-radius: 50%; background: var(--accent-l); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--accent-d); flex-shrink: 0; }
+.sp-n { font-weight: 600; font-size: 14px; }
+.sp-r { font-size: 12px; color: var(--text-2); margin-top: 4px; }
+
+footer { text-align: center; padding: 40px; color: var(--text-3); font-size: 11px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+
+<header class="hd">
+  <div class="hd-eye">OFFICIAL MEETING RECORD</div>
+  <h1 class="hd-title">家庭局組隊長會議紀錄</h1>
+  <div class="hd-sub">日期：2026/06/14 | 主持人：愛甄牧師 | 紀錄對象：家庭局全體領導團隊</div>
+</header>
+
+<nav class="tabs-nav">
+  <button class="tab-btn active" onclick="openTab(event, 'action-tab')">📍 行動摘要模式</button>
+  <button class="tab-btn" onclick="openTab(event, 'deep-tab')">🔍 深度分析模式</button>
+</nav>
+
+<div class="wrap">
+
+  <!-- ────────── TAB 1: 行動摘要 ────────── -->
+  <div id="action-tab" class="tab-content active">
+    
+    <div class="sl">會議統計數據</div>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-lbl">決策事項</div>
+        <div class="stat-val">6</div>
+      </div>
+      <div class="stat">
+        <div class="stat-lbl">行動項目</div>
+        <div class="stat-val">7</div>
+      </div>
+      <div class="stat">
+        <div class="stat-lbl">潛在風險</div>
+        <div class="stat-val">3</div>
+      </div>
+    </div>
+
+    <div class="sl">關鍵執行里程碑</div>
+    <div class="tl-wrap">
+      <div class="tl">
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">6/21</div><div class="tl-txt">發放新門禁卡<br>臉辨系統上線</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">6/26</div><div class="tl-txt">10樓教室完工<br>驗收空調油漆</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">6/28</div><div class="tl-txt">啟動21天禱告<br>改組方案說明</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">6月底</div><div class="tl-txt">神光牧師<br>三現場巡迴</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">7/12</div><div class="tl-txt">中央巡迴<br>分組座談</div></div>
+        <div class="tl-item"><div class="tl-dot" style="opacity:0.3"></div><div class="tl-date" style="opacity:0.3">7月底</div><div class="tl-txt" style="opacity:0.3">新組織架構<br>正式生效</div></div>
+      </div>
+    </div>
+
+    <div class="sl">核心決策彙整</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>項目</th>
+            <th>決策內容</th>
+            <th>執行邏輯與目的</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>領導職稱</strong></td>
+            <td>魏偉廷正式接任「區長」，不設副職。</td>
+            <td>職稱明確化，以利未來各區跨期混搭後的管理權責清晰。</td>
+          </tr>
+          <tr>
+            <td><strong>巡迴現場管理</strong></td>
+            <td>榮光牧師負責 B1 第二現場秩序。</td>
+            <td>B1 人員組成複雜，需由資深牧長壓場以維持聚會尊嚴。</td>
+          </tr>
+          <tr>
+            <td><strong>醫病禱告流程</strong></td>
+            <td>嚴格執行「表單預約制」，不開放臨時請求。</td>
+            <td>巡迴為全國同步連線，任何現場突發干擾都會造成連線事故。</td>
+          </tr>
+          <tr>
+            <td><strong>改組方針</strong></td>
+            <td>跨期混搭 + 功能性組隊（A/B雙軌制）。</td>
+            <td>打破期數隔閡，讓育兒經驗自然傳承，並透過興趣提升凝聚力。</td>
+          </tr>
+          <tr>
+            <td><strong>時程變動</strong></td>
+            <td>8/16 聚結提前至 8/2。</td>
+            <td>避開訪韓行程，確保主要幹部皆能參與 8 月的核心指導。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sl">待辦行動 Action Items</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th width="120">負責人</th>
+            <th>行動清單</th>
+            <th width="120">預計完成</th>
+            <th width="80">優先級</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>各組主隊長</td>
+            <td>提交 7/12 中央巡迴分段名單 (A/B/C/D) 至記事本</td>
+            <td>本週內</td>
+            <td><span class="badge b-urg">緊急</span></td>
+          </tr>
+          <tr>
+            <td>行政/工班</td>
+            <td>10 樓 TV 組裝、空調測試與臉部辨識安裝</td>
+            <td>6/21 (日)</td>
+            <td><span class="badge b-hi">高</span></td>
+          </tr>
+          <tr>
+            <td>主隊長群</td>
+            <td>依據改組共識，私下與成員溝通「跨期」意願</td>
+            <td>6/28 說明前</td>
+            <td><span class="badge b-hi">高</span></td>
+          </tr>
+          <tr>
+            <td>區長團隊</td>
+            <td>擬定功能性小組分類（如：運動、治理等）</td>
+            <td>7/12 前</td>
+            <td><span class="badge b-mid">一般</span></td>
+          </tr>
+          <tr>
+            <td>全體家長</td>
+            <td>拍攝一張「全家福照片」並附上姓名使命資料</td>
+            <td>待公告後</td>
+            <td><span class="badge b-mid">一般</span></td>
+          </tr>
+          <tr>
+            <td>嘉慶姊</td>
+            <td>10 樓教室沙發復原與整體清潔最終檢查</td>
+            <td>6/26 前</td>
+            <td><span class="badge b-hi">高</span></td>
+          </tr>
+          <tr>
+            <td>男性志願者</td>
+            <td>支援搬運與復原任務 (09:00 集合)</td>
+            <td>本週五</td>
+            <td><span class="badge b-mid">一般</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ────────── TAB 2: 深度分析 ────────── -->
+  <div id="deep-tab" class="tab-content">
+    
+    <div class="sl">詳盡會議摘要與脈絡說明</div>
+    
+    <div class="logic-block">
+      <div class="logic-title">1. 領導層活化與新人事任命</div>
+      <div class="logic-text">
+        會議開端由愛甄牧師介紹魏偉廷正式加入家庭局核心。偉廷區長在發言中展現謙遜態度，表達願以「助手」心態向年輕家庭學習，但組織賦予其「區長」重任。此任命象徵家庭局在面對大規模活動與組織轉型時，亟需具備跨部調度經驗的領導者來分擔牧師行政壓力，確保決策能落實到基層組隊。
+      </div>
+    </div>
+
+    <div class="logic-block">
+      <div class="logic-title">2. 神光牧師巡迴：空間分配與秩序之邏輯 <span class="logic-tag">6月底</span></div>
+      <div class="logic-text">
+        針對 6 月底神光牧師即將到來的巡迴，會議排除了「全員擠入本堂」的選項，改採「三現場同步導播」模式。<strong>第一現場</strong>定位為核心參與區；<strong>第二現場（B1）</strong>由榮光牧師親自坐鎮，負責管理 250 人規模的跨區人員，確保收視秩序；<strong>第三現場（10樓）</strong>則解決了家庭局最核心的痛點——「幼兒托育與家長參與的平衡」。透過投影片圖 05 的分班規劃（嫩嬰、星星班等），將家長與不同年齡的孩子分流至多功能教室。硬體上，嘉慶姊確保了無甲醛施工，體現對嬰幼兒健康的重視；技術上，則透過新門禁卡與臉部辨識，建立活動的安全防火牆。
+      </div>
+    </div>
+
+    <div class="logic-block">
+      <div class="logic-title">3. 中央巡迴：資訊上傳與生命冊意義 <span class="logic-tag">7/12</span></div>
+      <div class="logic-text">
+        7 月 12 日的中央巡迴不只是話語聚會，更是一次「生命現狀的校閱」。愛甄牧師要求製作「生命冊」，要求各家繳交全家福與使命資訊。其邏輯在於讓中央領導層能具體看見每個家庭的模樣與專業背景，建立精準的指導關係。同時，依據孩子年齡（A/B/C/D 組）進行的分段見面，是為了讓座談內容不再泛泛而談，而是能精準切入不同成長階段家長所面臨的教養挑戰。
+      </div>
+    </div>
+
+    <div class="logic-block">
+      <div class="logic-title">4. 組織大變革：從「期數」走向「功能與混搭」 <span class="logic-tag">決策轉折 91:40</span></div>
+      <div class="logic-text">
+        這是本次會議最重要的戰略決策。現行「按期數分組」已運作 8 年，產生了嚴重的<strong>「社交孤島」</strong>與<strong>「領導勞損」</strong>（部分組隊長已任職 8 年無法替換）。
+        會議中發生了激烈的意見碰撞：年輕的 11-13 期家庭強烈渴望與前輩混搭，以獲取婚姻與育兒的實戰經驗；而前輩家庭則擔心話題落差。
+        最後愛甄牧師採納了「全面混搭」結合「功能組隊」的方案。其邏輯是：<strong>不再以「年份」為界，而以「興趣與使命」為橋。</strong>例如愛好運動的家庭可以跨期組隊，治理家庭有方的長輩家庭帶領新手家庭。這不僅能活化人際關係，更能重新發掘隱藏在基層中的領導人才。會議決議於 6/28 啟動 21 天禱告，讓成員有心理緩衝期，隨後在 7 月底完成這場「毀滅性重組後的重生」。
+      </div>
+    </div>
+
+    <div class="sl">專案潛在風險與待確認事項</div>
+    <div class="risk-grid">
+      <div class="risk-item">
+        <div class="risk-ti">組織變動陣痛</div>
+        <div class="logic-text">現行期數制已運作 8 年，跨期混搭可能導致部分成員因「生活形態差異（如有無小孩）」產生社交隔閡。</div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-ti">硬體趕工風險</div>
+        <div class="logic-text">10 樓作為巡迴「第三現場」，電視組裝與沙發復原時程緊湊，若人力不足可能影響當日托育功能。</div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-ti">場地容納壓力</div>
+        <div class="logic-text">B1 包廂上限 250 人，若各教會回報人數超標，現場動線分配將面臨極大挑戰。</div>
+      </div>
+    </div>
+
+    <div class="logic-block" style="margin-top:20px; border-left: 4px solid var(--high);">
+      <div class="logic-title" style="color:var(--high); border-bottom:1px solid var(--high-l)">尚待確認／缺失資訊</div>
+      <div class="logic-text">
+        <ul>
+          <li>功能性小組具體分類與篩選機制（依興趣或專長？）尚未定案。</li>
+          <li>13 期訪韓參與率：凱倫提及成員可能在 1-2 月有榮耀神活動，需確認與全體聚結是否衝突。</li>
+          <li>「生命冊」電子化或紙本化的最終呈現方式與提交截止日。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sl">與會人員 (Speaker ID)</div>
+    <div class="speakers">
+      <div class="sp"><div class="sp-av">主持</div><div><div class="sp-n">愛甄牧師</div><div class="sp-r">主持人、會議引導者</div></div></div>
+      <div class="sp"><div class="sp-av">區長</div><div><div class="sp-n">魏偉廷</div><div class="sp-r">新任區長、行政協調</div></div></div>
+      <div class="sp"><div class="sp-av">秩序</div><div><div class="sp-n">榮光牧師</div><div class="sp-r">B1 第二現場管理</div></div></div>
+      <div class="sp"><div class="sp-av">報告</div><div><div class="sp-n">會庭姊</div><div class="sp-r">組織變革與硬體說明</div></div></div>
+      <div class="sp"><div class="sp-av">11期</div><div><div class="sp-n">雅雯</div><div class="sp-r">代表 11 期表達跨期意願</div></div></div>
+      <div class="sp"><div class="sp-av">13期</div><div><div class="sp-n">凱倫</div><div class="sp-r">代表 13 期確認行程安排</div></div></div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>2026/06/14 家庭局組隊長會議紀錄檔案</p>
+  <p>所有描述內容經錄音檔與投影片嚴格對照整理</p>
+</footer>
+
+<script>
+function openTab(evt, tabName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tab-content");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+    tabcontent[i].classList.remove("active");
+  }
+  tablinks = document.getElementsByClassName("tab-btn");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(tabName).style.display = "block";
+  document.getElementById(tabName).classList.add("active");
+  evt.currentTarget.className += " active";
+}
+</script>
+
+</body>
+</html>
